@@ -11,7 +11,20 @@
                 <div class="card-body">
                     <h4 class="card-title">{{$product['product_name']}}</h4>
                     <p class="card-text">P{{$product['price']}}</p>
-                    <a href="#" class="btn-dark-green text-decoration-none">Buy now</a>
+                    @if($admin)
+                    <div class="d-flex gap-2">
+<a href="/shop/edit/{{$product['id']}}" class="btn-dark-green text-decoration-none ">Edit</a>
+<form action="{{route('delete', ['id' => $product['id']])}}" method="post">
+@csrf
+@method("DELETE")
+ <button type="submit" value="Delete" name="submit" class="btn btn-danger rounded-0 text-decoration-none " onclick="return confirm('Are you sure to delete?')">Delete </button>
+</form>
+</div>
+
+@else
+<a href="#" class="btn-dark-green text-decoration-none">Buy now</a>
+@endif
+
                 </div>
             </div>
             @endforeach
